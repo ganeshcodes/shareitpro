@@ -1,0 +1,1 @@
+# Photo sharing application backed up by Azure Node and Azure SQL
