@@ -1,6 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p Application under development!
+
+  form(method="POST", id="uploadform" action="/login")
+    .form-group
+      label(for="username") Enter Username
+      input.form-control(type="text", name="username", id="username" placeholder="Type username here")
+    .form-group
+      .radio
+      label
+        input(type="radio" value="create" name="action")
+        |   Create/Modify
+      .radio
+      label
+        input(type="radio" value="view" name="action")
+        |   View      
+    button.btn.btn-success(type="submit") Enter
+
+

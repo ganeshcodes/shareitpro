@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Hello #{name},
+  form(method="POST", id="uploadform" action="/create")
+    .form-group
+      label(for="username") Enter title
+      input.form-control(type="text", name="title", id="title" placeholder="Title of the photo")
+    .form-group
+      label(for="photo") Upload photo
+      input.form-control(type="file", name="photo", id="photo")
+    button.btn.btn-success(type="submit") Share Now
+
+
