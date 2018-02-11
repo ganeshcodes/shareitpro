@@ -1,6 +1,19 @@
 extends layout
 
 block content
+    h1 Hello #{name},
+    p The below are the list of photos shared by other users
+    .panel-group
+      each row in rows
+        .panel.panel-default
+            .panel-heading
+                p #{row.title} uploaded by #{row.username}
+                p Ratings: #{row.ratings}
+                p Ratings count: #{row.ratingscount}
+                a(href=row.filelink) Download original photo
+            .panel-body
+                img(src=row.filelink, width=300, height=300)
 
-    p View the photos shared by other users
-
+    unless message.text == ''
+        div(class=message.style, style='margin-top: 10px')
+        strong= message.text
