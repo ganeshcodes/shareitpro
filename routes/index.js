@@ -111,6 +111,41 @@ router.post('/create', multer.single('photo'), function (req, res, next) {
   });
 });
 
+router.get('/updaterating', function(req, res, next) {
+  // Get all the fields
+  var username = req.query.username;
+  var title = req.query.title;
+  var ratings = parseFloat(req.query.ratings);
+  var ratingscount = parseInt(req.query.ratingscount);
+  var newrating = parseFloat(req.query.newrating);
+
+  // Calculate rating based on new rating
+  newrating = ( (ratings * ratingscount) + newrating ) / (ratingscount+1);
+  console.log('newr = '+newrating);
+
+  // Construct a query to update the ratings and ratingscount column for this photo
+  var query = "UPDATE shareitmain SET ratings="+newrating+", ratingscount="+(ratingscount+1)+" WHERE username='"+username+"' AND title='"+title+"'";
+  console.log(query);
+
+  // Execute the query
+  var request = new Request(query, function(err,rowcount,rows){
+    console.log(rowcount + ' row(s) returned');
+    var message = {
+      text: 'Ratings updated!', 
+      style: 'alert alert-success'
+    };
+    if (err){
+      console.log('error %o',err);
+      message = {
+        text: 'Something went wrong. Try again later!', 
+        style: 'alert alert-danger'
+      };
+    }
+    res.json(message);
+  });
+  db.execSql(request);
+});
+
 function getStream(buffer){
   var stream = new Duplex();
   stream.push(buffer);

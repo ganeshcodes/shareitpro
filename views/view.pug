@@ -3,17 +3,27 @@ extends layout
 block content
     h1 Hello #{name},
     p The below are the list of photos shared by other users
+    div(id='msg', style='margin-top: 10px')
     .panel-group
       each row in rows
         .panel.panel-default
-            .panel-heading
-                p #{row.title} uploaded by #{row.username}
-                p Ratings: #{row.ratings}
-                p Ratings count: #{row.ratingscount}
+            .panel-heading(id=row.title.split(' ')[0])
+                p Title: 
+                    span.title #{row.title}
+                p Uploaded by: 
+                    span.username #{row.username}
+                p Ratings: 
+                    span.ratings #{row.ratings}
+                p Ratings count: 
+                    span.ratingscount #{row.ratingscount}
                 a(href=row.filelink) Download original photo
+                div.ratingsbox.mt10
+                    input.mr10.left.form-control(type="text", name="ratings", class="ratingstext" placeholder="Rate this photo (1.0-5.0)")
+                    button.btn.btn-warning.ratingbtn(type='button', value=row.title.split(' ')[0]) Update
             .panel-body
                 img(src=row.filelink, width=300, height=300)
 
     unless message.text == ''
         div(class=message.style, style='margin-top: 10px')
         strong= message.text
+
